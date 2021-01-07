@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
       'price', 
       'stock', 
       'category_id',
-      [sequelize.literal('SELECT `tag_name` FROM `tag` WHERE `tag`.`id` = ANY `product_tags`.`tag_id` FROM `product_tag` WHERE `product_tag`.`product_id` = `product.id`;'), 'tags']
+      [sequelize.literal('(SELECT COUNT(*) FROM tag)'), 'tags']
     ],
     // be sure to include its associated Category and Tag data
     include: [

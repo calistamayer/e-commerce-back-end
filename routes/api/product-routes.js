@@ -13,14 +13,17 @@ router.get('/', (req, res) => {
       'product_name', 
       'price', 
       'stock', 
-      'category_id',
-      [sequelize.literal('(SELECT COUNT(*) FROM tag)'), 'tags']
+      'category_id'
     ],
     // be sure to include its associated Category and Tag data
     include: [
       {
         model: Category,
         attributes: ['category_name']
+      },
+      {
+        model: Tag,
+        attributes: ['id', 'tag_name']
       }
     ]
   }).then(dbProductData => res.json(dbProductData))
